@@ -1,7 +1,6 @@
 {
-	"title": "TTT Karma HP",
-	"type": "tool",
-	"tags": [],
+	"title": "TTT Karma HP for Custom Roles",
+	"type": "ServerContent",
 	"ignore": [
 		".git*",
 		".vscode*",

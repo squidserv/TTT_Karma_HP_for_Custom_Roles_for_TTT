@@ -12,22 +12,31 @@ if SERVER then
 	-- Hook to edit HP
 	hook.Add("TTTBeginRound","TTTBeginRound4KarmaHP",function()
 		-- calculate Health
-		local KarmaMax = GetConVarNumber("ttt_karma_max")
+		local KarmaMax = GetConVarNumber("ttt_karma_starting")
 		if KarmaHP:GetBool() then
 			for k, ply in pairs(player.GetAll()) do
-				local Karma = ply:GetBaseKarma()
-				local HP = math.min(math.max(math.floor(100-((KarmaMax-math.max(karmaTolerance:GetFloat(), 0))-Karma)/10*math.min(math.max(mult:GetFloat(), 0.01), 5)),math.min(math.max(minHealth:GetFloat(), 1), 99)),100)
-				if HP >= 100-math.min(math.max(tolerance:GetFloat(), 0), 99) then
-					HP = 100
+			    if IsValid(ply) and ply:Alive() and not ply:IsSpec() then
+                    local Karma = math.min(ply:GetBaseKarma(),KarmaMax)
+                    local maxHealth = 100
+                    if CR_VERSION then
+                        local role = ply:GetRole()
+                        if role > ROLE_NONE and role <= ROLE_MAX then
+                            maxHealth = GetConVar("ttt_" .. ROLE_STRINGS_RAW[role] .. "_starting_health"):GetInt()
+                        end
+                    end
+                    local HP = math.min(math.max(math.floor(maxHealth-((KarmaMax-math.max(karmaTolerance:GetFloat(), 0))-Karma)/10*math.min(math.max(mult:GetFloat(), 0.01), 5)),math.min(math.max(minHealth:GetFloat(), 1), maxHealth-1)),maxHealth)
+                    if HP >= maxHealth-math.min(math.max(tolerance:GetFloat(), 0), maxHealth-1) then
+                        HP = maxHealth
+                    end
+                    if not (cleanBonus == 0) and Karma >= KarmaMax then
+                        HP = maxHealth+cleanBonus:GetFloat()
+                    end
+                    ply:SetHealth(HP)
+                    -- info text
+                    net.Start("KarmaHPText")
+                    net.WriteString("Your have received "..HP.." HP caused of your Karma.")
+                    net.Send(ply)
 				end
-				if not (cleanBonus == 0) and Karma >= KarmaMax then
-					HP = 100+cleanBonus:GetFloat()
-				end
-				ply:SetHealth(HP)
-				-- info text
-				net.Start("KarmaHPText")
-				net.WriteString("Your have received "..HP.." HP caused of your Karma.")
-				net.Send(ply)
 			end
 		end
 	end)
