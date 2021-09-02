@@ -5,9 +5,9 @@ if SERVER then
 	-- ConVars
 	local KarmaHP = CreateConVar( "ttt_Karma_hp", "1", FCVAR_SERVER_CAN_EXECUTE, "Enables and disables KarmaHP addon.")
 	local minHealth = CreateConVar( "ttt_karma_hp_min_health", "20", FCVAR_SERVER_CAN_EXECUTE, "Sets the minimum health a player can have (given by this addon). (1-99) Def: 20.")
-	local mult = CreateConVar( "ttt_karma_hp_mult", "1", FCVAR_SERVER_CAN_EXECUTE, "Sets the multiplicator how much HP should be stolen. (0.01-5) Def: 1.")
-	local tolerance = CreateConVar( "ttt_karma_hp_tolerance", "0", FCVAR_SERVER_CAN_EXECUTE, "Sets the helth tolerance wich does not steal hp. (0-99) Def: 0.")
-	local karmaTolerance = CreateConVar( "ttt_karma_hp_tolerance_karma", "0", FCVAR_SERVER_CAN_EXECUTE, "Sets the karma tolerance wich does not steal hp. Def: 0.")
+	local mult = CreateConVar( "ttt_karma_hp_mult", "1", FCVAR_SERVER_CAN_EXECUTE, "Sets the multiplier how much HP should be stolen. (0.01-5) Def: 1.")
+	local tolerance = CreateConVar( "ttt_karma_hp_tolerance", "0", FCVAR_SERVER_CAN_EXECUTE, "Sets the health tolerance which does not steal hp. (0-99) Def: 0.")
+	local karmaTolerance = CreateConVar( "ttt_karma_hp_tolerance_karma", "0", FCVAR_SERVER_CAN_EXECUTE, "Sets the karma tolerance which does not steal hp. Def: 0.")
 	local cleanBonus = CreateConVar( "ttt_karma_hp_clean_bonus", "0", FCVAR_SERVER_CAN_EXECUTE, "Sets the hp bonus for clean karma. Def: 0.")
 	-- Hook to edit HP
 	hook.Add("TTTBeginRound","TTTBeginRound4KarmaHP",function()
