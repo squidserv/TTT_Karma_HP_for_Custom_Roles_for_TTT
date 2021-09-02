@@ -1,0 +1,16 @@
+{
+	"title": "TTT Karma HP",
+	"type": "tool",
+	"tags": [],
+	"ignore": [
+		".git*",
+		".vscode*",
+		"*.md",
+		"*.iml",
+		".idea*",
+		"*.psd",
+		"*.vcproj",
+		"*.svn*",
+		"LICENSE"
+	]
+}
